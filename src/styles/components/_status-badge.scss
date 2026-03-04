@@ -1,0 +1,19 @@
+@use "../abstracts/variables" as *;
+
+.status-badge {
+  border-radius: 999px;
+  padding: 0.18rem 0.65rem;
+  font-weight: 700;
+  font-size: 0.78rem;
+  display: inline-flex;
+}
+
+.status-badge--pending {
+  color: $warning;
+  background: rgba(239, 108, 0, 0.12);
+}
+
+.status-badge--approved {
+  color: $primary;
+  background: rgba(46, 125, 50, 0.12);
+}

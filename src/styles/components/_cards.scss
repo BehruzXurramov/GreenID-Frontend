@@ -1,0 +1,161 @@
+@use "../abstracts/variables" as *;
+
+.cards-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.submission-card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius;
+  box-shadow: $shadow-card;
+  padding: 1rem;
+  display: grid;
+  gap: 0.95rem;
+}
+
+.submission-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.submission-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.submission-card__date {
+  color: $muted;
+  font-size: 0.85rem;
+}
+
+.submission-card__points {
+  font-weight: 800;
+  color: $primary;
+  background: rgba(102, 187, 106, 0.17);
+  border-radius: 999px;
+  padding: 0.28rem 0.65rem;
+  font-size: 0.86rem;
+}
+
+.submission-card__user {
+  display: grid;
+  gap: 0.1rem;
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+}
+
+.submission-card__user span {
+  color: $muted;
+  font-size: 0.9rem;
+}
+
+.submission-card__images {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.submission-card__images figure {
+  border: 1px solid $border;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.submission-card__images img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.submission-card__images figcaption {
+  padding: 0.45rem 0.55rem;
+  font-size: 0.83rem;
+  color: $muted;
+}
+
+.submission-card__content h3,
+.submission-card__feedback h4 {
+  margin-bottom: 0.35rem;
+  font-size: 0.98rem;
+}
+
+.submission-card__content p,
+.submission-card__feedback p {
+  color: $text;
+}
+
+.submission-card__feedback {
+  border-top: 1px dashed $border;
+  padding-top: 0.65rem;
+}
+
+.admin-review-form {
+  display: grid;
+  gap: 0.7rem;
+  border-top: 1px dashed $border;
+  padding-top: 0.75rem;
+}
+
+.admin-review-form__fields {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.admin-review-form label {
+  display: grid;
+  gap: 0.3rem;
+  font-weight: 600;
+  color: $muted;
+  font-size: 0.92rem;
+}
+
+.loader-wrap {
+  display: grid;
+  place-items: center;
+  gap: 0.6rem;
+  padding: 2rem 1rem;
+  color: $muted;
+}
+
+.loader {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 3px solid rgba(46, 125, 50, 0.2);
+  border-top-color: $primary;
+  animation: spin 0.8s linear infinite;
+}
+
+.empty-state {
+  border: 1px dashed rgba(46, 125, 50, 0.35);
+  border-radius: $radius;
+  padding: 1.15rem;
+  text-align: center;
+  color: $muted;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.empty-state h3 {
+  color: $text;
+  margin-bottom: 0.35rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: $mobile) {
+  .submission-card__images {
+    grid-template-columns: 1fr;
+  }
+}

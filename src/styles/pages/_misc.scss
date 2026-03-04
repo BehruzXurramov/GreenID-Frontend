@@ -1,0 +1,14 @@
+@use "../abstracts/variables" as *;
+
+.centered-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 0.8rem;
+  padding: 1.25rem;
+}
+
+.centered-page p {
+  color: $muted;
+}

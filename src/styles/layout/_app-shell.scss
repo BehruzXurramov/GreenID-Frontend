@@ -1,0 +1,133 @@
+@use "../abstracts/variables" as *;
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-shell__mobile-header {
+  display: none;
+}
+
+.app-shell__sidebar {
+  border-right: 1px solid $border;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  padding: 1.1rem;
+  overflow-y: auto;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.app-shell__main {
+  padding: 1.4rem;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.info-card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius;
+  box-shadow: $shadow-card;
+  padding: 1rem;
+}
+
+.info-card h2 {
+  font-size: 1.1rem;
+}
+
+.info-card p {
+  margin-top: 0.25rem;
+  color: $muted;
+  word-break: break-word;
+}
+
+.points-pill {
+  display: inline-flex;
+  margin-top: 0.7rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(46, 125, 50, 0.14);
+  color: $primary;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.side-actions,
+.side-nav {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.app-shell__overlay {
+  display: none;
+}
+
+@media (max-width: $mobile) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .app-shell__mobile-header {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.95rem;
+    border-bottom: 1px solid $border;
+    background: rgba(255, 255, 255, 0.92);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+
+  .app-shell__mobile-header h1 {
+    font-size: 1.05rem;
+  }
+
+  .app-shell__sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(85vw, 320px);
+    transform: translateX(-100%);
+    transition: transform 0.2s ease-in-out;
+    z-index: 30;
+  }
+
+  .app-shell__sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .app-shell__overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 25;
+  }
+
+  .app-shell__overlay.is-open {
+    display: block;
+  }
+
+  .app-shell__main {
+    padding: 1rem;
+    height: auto;
+    overflow: visible;
+  }
+}
