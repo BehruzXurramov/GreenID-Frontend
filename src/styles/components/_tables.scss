@@ -3,6 +3,7 @@
 .table-wrap {
   width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border: 1px solid $border;
   border-radius: $radius;
   background: $surface;
@@ -11,7 +12,7 @@
 .users-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 640px;
+  min-width: 760px;
 }
 
 .users-table th,
@@ -19,6 +20,7 @@
   text-align: left;
   padding: 0.78rem 0.9rem;
   border-bottom: 1px solid $border;
+  white-space: nowrap;
 }
 
 .users-table th {
@@ -49,4 +51,27 @@
 .role-pill--admin {
   color: #0d47a1;
   background: rgba(13, 71, 161, 0.12);
+}
+
+.table-mobile-hint {
+  display: none;
+}
+
+@media (max-width: $mobile) {
+  .table-wrap {
+    border-radius: 10px;
+  }
+
+  .users-table th,
+  .users-table td {
+    padding: 0.68rem 0.75rem;
+    font-size: 0.86rem;
+  }
+
+  .table-mobile-hint {
+    display: block;
+    margin-top: 0.45rem;
+    color: $muted;
+    font-size: 0.82rem;
+  }
 }
