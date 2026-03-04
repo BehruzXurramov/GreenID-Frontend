@@ -1,35 +1,52 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaLeaf } from "react-icons/fa";
-import { useAuth } from "../hooks/useAuth";
 import { ApiErrorAlert } from "../components/common/ApiErrorAlert";
+import { useAuth } from "../hooks/useAuth";
 
 export const WelcomePage = () => {
   const navigate = useNavigate();
-  const { loginWithGoogle, authLoading } = useAuth();
+  const { isAuthenticated, login } = useAuth();
   const [error, setError] = useState(null);
+  const googleLoginUrl = useMemo(
+    () =>
+      import.meta.env.VITE_GOOGLE_LOGIN_URL ||
+      `${import.meta.env.VITE_API_BASE_URL || "https://bestapi.uz/greenid"}/auth/google`,
+    []
+  );
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = () => {
     setError(null);
-    try {
-      await loginWithGoogle();
-      navigate("/dashboard", { replace: true });
-    } catch (loginError) {
-      if (
-        loginError instanceof Error &&
-        loginError.message.includes(
-          "Backend callback front-end manziliga redirect",
-        )
-      ) {
-        setError(
-          "Kirish yakunlanmadi. Tizim sozlamalari yangilanmoqda, keyinroq qayta urinib ko'ring.",
-        );
-        return;
-      }
-
-      setError(loginError);
+    if (!googleLoginUrl) {
+      setError("Google kirish manzili topilmadi.");
+      return;
     }
+
+    window.location.href = googleLoginUrl;
   };
+
+  const handleGoDashboard = () => {
+    navigate("/dashboard");
+  };
+
+  useEffect(() => {
+    // Fallback: agar backend root'ga query bilan qaytarsa, shu yerda sessionni saqlab yuboramiz.
+    const params = new URLSearchParams(window.location.search);
+    const accessToken = params.get("accessToken");
+    const userRaw = params.get("user");
+
+    if (!accessToken || !userRaw) {
+      return;
+    }
+
+    try {
+      const user = JSON.parse(userRaw);
+      login({ accessToken, user });
+      navigate("/dashboard", { replace: true });
+    } catch {
+      setError("Kirish ma'lumotlarini o'qib bo'lmadi. Qayta urinib ko'ring.");
+    }
+  }, [login, navigate]);
 
   return (
     <div className="welcome-page">
@@ -44,14 +61,23 @@ export const WelcomePage = () => {
           va birgalikda toza hamda sog‘lom mahalla yaratadi.
         </p>
 
-        <button
-          type="button"
-          className="btn btn--primary btn--large"
-          onClick={handleGoogleLogin}
-          disabled={authLoading}
-        >
-          {authLoading ? "Ulanmoqda..." : "Google orqali kirish"}
-        </button>
+        {isAuthenticated ? (
+          <button
+            type="button"
+            className="btn btn--primary btn--large"
+            onClick={handleGoDashboard}
+          >
+            Dashboardga o‘tish
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="btn btn--primary btn--large"
+            onClick={handleGoogleLogin}
+          >
+            Google orqali kirish
+          </button>
+        )}
 
         <ApiErrorAlert error={error} />
       </main>

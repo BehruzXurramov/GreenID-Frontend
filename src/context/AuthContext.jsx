@@ -1,5 +1,4 @@
 import { createContext, useEffect, useMemo, useState } from "react";
-import { loginWithGooglePopup } from "../api/authApi";
 import { setUnauthorizedHandler } from "../api/client";
 import { getCurrentUser } from "../api/usersApi";
 import { STORAGE_KEYS } from "../constants/storageKeys";
@@ -21,7 +20,6 @@ const readStoredUser = () => {
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem(STORAGE_KEYS.token));
   const [user, setUser] = useState(readStoredUser);
-  const [authLoading, setAuthLoading] = useState(false);
 
   const persistSession = (accessToken, nextUser) => {
     localStorage.setItem(STORAGE_KEYS.token, accessToken);
@@ -44,15 +42,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const loginWithGoogle = async () => {
-    setAuthLoading(true);
-    try {
-      const payload = await loginWithGooglePopup();
-      persistSession(payload.accessToken, payload.user);
-      return payload.user;
-    } finally {
-      setAuthLoading(false);
-    }
+  const login = ({ accessToken, user: nextUser }) => {
+    persistSession(accessToken, nextUser);
+    return nextUser;
   };
 
   const refreshMe = async () => {
@@ -73,14 +65,13 @@ export const AuthProvider = ({ children }) => {
     () => ({
       token,
       user,
-      authLoading,
       isAuthenticated: Boolean(token && user),
-      loginWithGoogle,
+      login,
       refreshMe,
       logout,
       setUser,
     }),
-    [token, user, authLoading]
+    [token, user]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

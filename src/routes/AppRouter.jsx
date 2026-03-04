@@ -4,6 +4,7 @@ import { DashboardPage } from "../pages/DashboardPage";
 import { AdminPage } from "../pages/AdminPage";
 import { AccessDeniedPage } from "../pages/AccessDeniedPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
+import { AuthCallbackPage } from "../pages/AuthCallbackPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { AdminRoute } from "./AdminRoute";
 
@@ -11,6 +12,7 @@ export const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<WelcomePage />} />
+      <Route path="/auth/callback" element={<AuthCallbackPage />} />
       <Route
         path="/dashboard"
         element={

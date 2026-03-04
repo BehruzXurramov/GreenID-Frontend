@@ -36,7 +36,6 @@ VITE_IMGBB_API_KEY=your_imgbb_api_key
 ```text
 src/
   api/
-    authApi.js
     client.js
     imgbbApi.js
     submissionsApi.js
@@ -57,6 +56,7 @@ src/
   pages/
     AccessDeniedPage.jsx
     AdminPage.jsx
+    AuthCallbackPage.jsx
     DashboardPage.jsx
     NotFoundPage.jsx
     WelcomePage.jsx
@@ -77,10 +77,10 @@ src/
 
 ## OAuth Note
 
-Backend callback (`/auth/google/callback`) returns raw JSON on API domain. Automatic popup parsing works when callback becomes readable in popup context, but can fail on strict cross-origin setups.  
-For seamless user experience, backend should redirect callback to frontend origin and pass auth payload via:
-- secure HTTP-only session/cookie strategy, or
-- short-lived one-time code exchanged on frontend.
+Backend should redirect from `/auth/google/callback` to frontend callback route:
+- `/auth/callback?accessToken=...&user=...`
+
+Frontend callback page reads query params, stores session, then redirects to `/dashboard`.
 
 ## Implemented Features
 
