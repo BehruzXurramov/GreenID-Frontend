@@ -76,17 +76,19 @@
 
 @media (max-width: $mobile) {
   .app-shell {
-    grid-template-columns: 1fr;
+    display: block;
     height: auto;
     min-height: 100vh;
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   .app-shell__mobile-header {
     display: flex;
     align-items: center;
     gap: 0.7rem;
-    padding: 0.95rem;
+    min-height: 56px;
+    padding: 0.7rem 0.9rem;
     border-bottom: 1px solid $border;
     background: rgba(255, 255, 255, 0.92);
     position: sticky;
@@ -95,7 +97,8 @@
   }
 
   .app-shell__mobile-header h1 {
-    font-size: 1.05rem;
+    font-size: 1rem;
+    line-height: 1.2;
   }
 
   .app-shell__sidebar {
@@ -104,6 +107,7 @@
     left: 0;
     bottom: 0;
     width: min(85vw, 320px);
+    height: 100dvh;
     transform: translateX(-100%);
     transition: transform 0.2s ease-in-out;
     z-index: 30;
@@ -126,8 +130,10 @@
   }
 
   .app-shell__main {
-    padding: 1rem;
+    width: 100%;
+    padding: 0.95rem;
     height: auto;
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 }

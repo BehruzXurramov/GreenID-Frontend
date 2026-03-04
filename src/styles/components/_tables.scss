@@ -2,7 +2,9 @@
 
 .table-wrap {
   width: 100%;
+  max-width: 100%;
   overflow-x: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   border: 1px solid $border;
   border-radius: $radius;
@@ -53,10 +55,6 @@
   background: rgba(13, 71, 161, 0.12);
 }
 
-.table-mobile-hint {
-  display: none;
-}
-
 @media (max-width: $mobile) {
   .table-wrap {
     border-radius: 10px;
@@ -66,12 +64,5 @@
   .users-table td {
     padding: 0.68rem 0.75rem;
     font-size: 0.86rem;
-  }
-
-  .table-mobile-hint {
-    display: block;
-    margin-top: 0.45rem;
-    color: $muted;
-    font-size: 0.82rem;
   }
 }
