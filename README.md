@@ -2,6 +2,8 @@
 
 Production-ready MVP frontend for GreenID using React + Vite, React Router, SCSS, React Icons, and native Fetch.
 
+Live: https://greenid-project.vercel.app/
+
 ## Stack
 
 - React (Vite)
